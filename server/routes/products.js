@@ -1,6 +1,7 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-const Product = require('../models/product');
+const {Product} = require('../models/product');
+const User = require('../models/user');
 
 
 const productsRouter = express.Router();
@@ -67,5 +68,91 @@ productsRouter.post('/api/rate-product',auth, async (req,res) => {
         res.status(500).json({msg: e.message});
     }
 });
+
+//Deal of the day
+
+productsRouter.get('/api/deal-of-the-day', auth, async (req,res) => { 
+    try{
+
+        let products = await Product.find({});
+
+        products = products.sort((a,b) => {
+            
+            let aSum = 0;
+            let bSum = 0;
+
+            for(let i=0; i<a.ratings.length; i++){
+
+                aSum+=  a.ratings[i].rating;
+            }
+
+            for(let i=0; i<b.ratings.length; i++){
+
+                bSum+=  b.ratings[i].rating;
+            }
+
+            return aSum < bSum ? 1 : -1;
+
+        });
+
+        res.json(products[0]);
+
+    }catch(e){
+        res.status(500).json({msg: e.message});
+    }
+});
+
+//Check if product is already added to cart
+
+productsRouter.get('/api/products/get-cart-status', auth, async (req,res) => { 
+    try{
+
+        let isAddedToCart = false;
+
+        console.log(req.query._id);
+        const product = await Product.find({
+            _id: req.query._id
+        });
+        //console.log(product[0].name);
+
+        let user = await User.findById(req.user);
+        
+        if(user.cart.length == 0){
+
+            isAddedToCart= false
+
+        } else{
+
+            let isProductFound = false;
+
+            for(let i=0; i<user.cart.length; i++){
+
+                if(user.cart[i].product._id.equals(product[0]._id)){
+
+                    isProductFound = true;
+                } else{
+                    isProductFound = false;
+                }
+            }
+
+            if(isProductFound){
+
+                isAddedToCart = true;
+
+            } else{
+
+                isAddedToCart = false;
+
+            }
+        }
+
+        res.send(isAddedToCart);
+       // res.send(product._id);
+
+    }catch(e){
+        res.status(500).json({msg: e.message});
+    }
+});
+
 
 module.exports = productsRouter;

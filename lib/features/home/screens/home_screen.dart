@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return PreferredSize(
       preferredSize: const Size.fromHeight(60),
       child: AppBar(
+        leading: null,
         flexibleSpace: Container(
           decoration: BoxDecoration(gradient: GlobalVariable.appBarGradient),
         ),

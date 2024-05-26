@@ -5,7 +5,7 @@ import 'package:amazon_clone/constants/global_variable.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/auth/services/auth_service.dart';
-import 'package:amazon_clone/features/home/screens/home_screen.dart';
+import 'package:amazon_clone/models/payment_method_model.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:amazon_clone/router.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 bool isLoggedIn = false;
 String authkey ='';
+List<PaymentMethodModel> paymentMethodList = [];
 
 void main() {
   runApp(MultiProvider(
@@ -54,10 +55,6 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
 
-  }
-
-  void asyncfun() async{
-    print("this is an async function!");
   }
 
   // This widget is the root of your application.

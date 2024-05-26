@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String uri = 'http://192.168.170.6:3000';
+String uri = 'http://192.168.1.6:3000';
 String uri__ = 'http://10.200.61.94:3000';
 String uri_ = 'http://localhost:3000';
 
@@ -9,18 +9,22 @@ class GlobalVariable{
   static const appBarGradient = LinearGradient(
     colors: [
       Color.fromARGB(255, 29, 201, 192),
+
       Color.fromARGB(255, 125, 221, 216),
     ],
     stops: [0.5, 1.0],
   );
 
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
+  static const buttonColor =  Color.fromRGBO(254, 216, 19, 1);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundColor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+  static const String privacyPolicy = "By placing your order, you agree to Amazon's privacy policy and conditions of use.\n\nWhen your order is successfully placed, you will receive an order confirmation via email or notification. This confirmation will include details of your purchase, estimated delivery times, and any applicable charges. Please review our privacy policy and conditions of use to understand how we handle your information and the terms and conditions that govern your use of our services. If you have any questions or need assistance, our customer support team is here to help. Thank you for choosing Amazon for your shopping needs!\n\n See Amazon.in's Return Policy";
 
-  static const List<String> carouselImages = [
+
+      static const List<String> carouselImages = [
     'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',
     'https://images-eu.ssl-images-amazon.com/images/G/31/img2021/Vday/bwl/English.jpg',
     'https://images-eu.ssl-images-amazon.com/images/G/31/img22/Wireless/AdvantagePrime/BAU/14thJan/D37196025_IN_WL_AdvantageJustforPrime_Jan_Mob_ingress-banner_1242x450.jpg',

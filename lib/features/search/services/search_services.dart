@@ -11,6 +11,8 @@ import '../../../models/product.dart';
 import '../../../providers/user_provider.dart';
 
 class SearchServices {
+
+  
   Future<List<Product>> fetchSearchedProducts({
     required BuildContext context,
     required String query,

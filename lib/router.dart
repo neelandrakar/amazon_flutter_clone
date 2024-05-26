@@ -1,8 +1,13 @@
+import 'package:amazon_clone/features/account/screen/my_orders_screen.dart';
+import 'package:amazon_clone/features/address/screens/address_screen.dart';
 import 'package:amazon_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/home/screens/category_deals_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
+import 'package:amazon_clone/features/home/widgets/address_box.dart';
+import 'package:amazon_clone/features/orderstepper/screen/order_stepper_screen.dart';
+import 'package:amazon_clone/features/orderstepper/screen/order_success%20_screen.dart';
 import 'package:amazon_clone/features/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +29,24 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const HomeScreen(),
       );
+
+    case MyOrdersScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const MyOrdersScreen(),
+      );
+
+    case OrderStepperScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const OrderStepperScreen(),
+      );
+
+    case AddressScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AddressScreen(),
+      );
     case BottomBar.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -39,6 +62,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const AdminScreen(),
+      );
+
+    case OrderSuccessScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const OrderSuccessScreen(),
       );
 
     case SearchScreen.routeName:

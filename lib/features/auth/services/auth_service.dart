@@ -30,9 +30,10 @@ class AuthService {
           name: name,
           email: email,
           password: password,
-          address: "",
+          addresses: [],
           type: "",
-          token: "");
+          token: "",
+          cart: []);
 
       http.Response res = await http
           .post(Uri.parse('$uri/api/signup/'), //Calling the sign up API
@@ -69,7 +70,9 @@ class AuthService {
     try {
       http.Response res = await http
           .post(Uri.parse('$uri/api/signin/'), //Calling the sign up API
-              body: jsonEncode({'email': email, 'password': password}),
+              body: jsonEncode({
+                'email': email,
+                'password': password}),
               headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           });
@@ -82,14 +85,14 @@ class AuthService {
           response: res,
           context: context,
           onSuccess: () async {
-            SharedPreferences.setMockInitialValues({});
-            SharedPreferences signInSP = await SharedPreferences.getInstance();
+            //SharedPreferences.setMockInitialValues({});
+            final signInSP = await SharedPreferences.getInstance();
             Provider.of<UserProvider>(context, listen: false).setUser(res.body);
 
             await signInSP.setString(
                 'x-auth-token', jsonDecode(res.body)['token']);
-            var getToken = signInSP.getString('x-auth-token');
-            print("New token is saved $getToken");
+            signInSP.setString('x-auth-token', jsonDecode(res.body)['token']);
+            print("New token is saved ${jsonDecode(res.body)['token']}");
 
             Navigator.pushNamedAndRemoveUntil(
                 context, BottomBar.routeName, (route) => false);
@@ -98,10 +101,6 @@ class AuthService {
               context,
               "Successfully signed in",
             );
-            Future<void> setUserLoggedIn(bool value) async {
-              final prefs = await SharedPreferences.getInstance();
-              prefs.setBool('loggedIn', value);
-            }
           });
     } catch (e) {
       print("Error $e");
@@ -112,13 +111,13 @@ class AuthService {
   void getUserData(BuildContext context) async {
     print('get user data method ran');
     try {
-      // SharedPreferences.resetStatic()
+      // SharedPreferences.resetStatic();
       final signInSP = await SharedPreferences.getInstance();
       String? token = signInSP.getString('x-auth-token');
 
       print('saved token is $token');
 
-      if(token==''){
+      if (token == '') {
         print('token is blank');
       }
 
@@ -151,7 +150,6 @@ class AuthService {
         print("Service is started $tokenStatus");
       }
     } catch (e) {
-
       print(e);
     }
   }

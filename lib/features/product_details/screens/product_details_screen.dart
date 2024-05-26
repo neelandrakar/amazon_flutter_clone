@@ -30,11 +30,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final ProductDetailsServices productDetailsServices = ProductDetailsServices();
   double avgRating = 0;
   double myRating = 0;
+  bool addedToCart = false;
+  String addToCartText = 'Add to Cart';
 
 
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
+  
+  void addToCart(){
+    
+    productDetailsServices.addToCart(context: context, product: widget.product);
+  }
+
+  Future<void> getCartStatus() async {
+
+    addedToCart = await productDetailsServices.voidGetCartStatus(context: context, id: widget.product.id!);
+    setState(() {
+    });
+  }
+
 
   @override
   void initState() {
@@ -56,6 +71,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         avgRating = totalRating / widget.product.rating!.length;
       }
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      getCartStatus();
+    });
+
   }
 
 
@@ -150,17 +170,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               padding: const EdgeInsets.all(10),
               child: CustomButton(
                 text: 'Buy Now',
-                onTap: () {},
+                onTap: () {
+                  print("Status is $addedToCart");
+
+                },
               ),
             ),
             const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: 'Add to Cart',
-                onTap: (){},
+              child: !addedToCart ? CustomButton(
+                text: addToCartText,
+                onTap: (){
+                  addToCart();
+                  print('Product id is ${widget.product.id}');
+                  setState(() {
+                    addToCartText = 'Added to Cart';
+                    addedToCart = true;
+                  });
+                },
                 color: const Color.fromRGBO(254, 216, 19, 1),
-              ),
+              ) : CustomButton(
+                text: 'Go to cart',
+                onTap: (){},
+                borderColor: Colors.green,
+                color: const Color.fromRGBO(254, 216, 19, 1),
+              )
             ),
             const SizedBox(height: 10),
             Container(
@@ -273,4 +308,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ),
     );
   }
+
+
 }

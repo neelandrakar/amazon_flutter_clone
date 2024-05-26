@@ -151,7 +151,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     sellProducts();
                   },
                 )
-
               ],
             ),
           ),

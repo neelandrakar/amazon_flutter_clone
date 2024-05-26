@@ -24,6 +24,7 @@ class AdminServices {
 
     try {
       print('part 1');
+
       final cloudinary = CloudinaryPublic('dhfiapa0x', 'giscyuqg');
       List<String> imageUrls = [];
 
@@ -34,7 +35,6 @@ class AdminServices {
         imageUrls.add(res.secureUrl);
       }
 
-      print('part 2');
       Product product = Product(
           name: name,
           description: description,
@@ -43,7 +43,6 @@ class AdminServices {
           category: category,
           price: price);
 
-      print('part 3');
 
       http.Response res = await http.post(
         Uri.parse('$uri/admin/add-product'),

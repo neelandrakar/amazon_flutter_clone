@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { productSchema } = require('./product');
+const addressSchema = require('./address');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -28,14 +30,35 @@ const userSchema = mongoose.Schema({
         //     message: 'Your password must contains 6 digits!'
         // },
     },
-    address:{
-        type: String,
-        default: '',
-    },
+
+    addresses:[
+        {
+            addressInfo: addressSchema,
+            defaultAddress: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+
     type:{
         type: String,
         default: 'User',
-    }
+    },
+
+    cart: [
+        {
+            product: productSchema,
+            quantity: {
+                type: Number,
+                required: true,
+            },
+            price: {
+                type: Number,
+                //required: true,
+            }
+        }
+    ]
 });
 
 const User = mongoose.model('User',userSchema);

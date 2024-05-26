@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/account/screen/my_orders_screen.dart';
 import 'package:amazon_clone/features/account/widgets/account_button.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,9 @@ class _TopButtonsState extends State<TopButtons> {
       children: [
         Row(
           children: [
-            AccountButton(buttonText: 'Your Order', onTap: (){}),
+            AccountButton(buttonText: 'Your Order', onTap: (){
+              Navigator.pushNamed(context, MyOrdersScreen.routeName);
+            }),
             AccountButton(buttonText: 'Turn Seller', onTap: (){}),
           ],
         ),
